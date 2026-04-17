@@ -14,25 +14,22 @@ Template Image
      │
      ▼
 [1] SIFT Feature Extraction
-     │  contrastThreshold, edgeThreshold, sigma, nfeatures
+     │  contrastThreshold, edgeThreshold
      ▼
-[2] FLANN Matching (KD-Tree)
-     │  Find k=2 nearest neighbors for each descriptor
+[2] FLANN Matching
+     │  
      ▼
 [3] Lowe's Ratio Test
-     │  keep match if  d1 < RATIO × d2
+     │  
      ▼
 [4] RANSAC Homography  (cv2.findHomography)
-     │  filter geometric outliers → 3×3 matrix H
+     │ 
      ▼
 [5] Perspective Transform  (cv2.perspectiveTransform)
      │  project template corners → bounding box in video frame
      ▼
      Output Video with bounding box
 ```
-
-Multi-detect cases add an **Iterative Homography** loop:
-remove inlier keypoints after each detection → repeat until `MAX_DETECTIONS` or no more matches.
 
 ---
 
@@ -130,6 +127,17 @@ Default params (ratio=0.75, RANSAC=5.0) are sufficient. H model fully satisfied.
 | 4 | ![](case_failed/failed_but_unexpected/assets/template_4.png) | Detailed artwork / painting under dynamic lighting | SIFT gradient normalization cannot handle extreme illumination change | [run_failed_unexpected_4.py](case_failed/failed_but_unexpected/run_failed_unexpected_4.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1bI7kM6HstJRBhL-iNYMPtB_4TkaH80Wl) | [FAILURE_ANALYSIS_4.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_4.txt) |
 | 5 | ![](case_failed/failed_but_unexpected/assets/template_5.png) | Book cover in cluttered bookshelf | Correct RANSAC, Wrong Object — neighbor books have similar local features | [run_failed_unexpected_5.py](case_failed/failed_but_unexpected/run_failed_unexpected_5.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1bI7kM6HstJRBhL-iNYMPtB_4TkaH80Wl) | [FAILURE_ANALYSIS_5.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_5.txt) |
 
+### Techniques that would help
+
+| # | Recommended Technique |
+|---|----------------------|
+| 1 | Divide surface into planar patches; combine multiple local H estimates |
+| 2 | Individual Re-ID features (CNN embedding) trained on specific individual |
+| 3 | Multi-scale image pyramid search; Super-resolution pre-processing |
+| 4 | CLAHE illumination normalization; Retinex algorithm before SIFT |
+| 5 | Color Signature pre-filtering; verify color histogram after RANSAC |
+
+---
 
 ## How to Run
 
