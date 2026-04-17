@@ -153,6 +153,10 @@ python case_failed/failed_but_unexpected/run_failed_unexpected_.py
 
 ```
 ---
+## Code and Video Links (Google Drive)
+
+https://drive.google.com/drive/u/2/folders/1lVTZMr1QJoHrxN_yb2sv8QUtb1Cqozne
+---
 
 *CI 7204 Image Processing and Analytics — Narubet Intaraprasit*
 
