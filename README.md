@@ -153,15 +153,6 @@ python case_failed/failed_but_unexpected/run_failed_unexpected_.py
 
 ```
 ---
-| Case | Drive Link |
-|------|-----------|
-| Easy 1–5 | *(upload output videos → paste link)* |
-| Difficult 1–5 | *(upload output videos → paste link)* |
-| Failed Expected 1–5 | *(upload output videos → paste link)* |
-| Failed Unexpected 1–5 | *(upload output videos → paste link)* |
-| Multi-Detect | *(upload output video → paste link)* |
-
----
 
 *CI 7204 Image Processing and Analytics — Narubet Intaraprasit*
 
