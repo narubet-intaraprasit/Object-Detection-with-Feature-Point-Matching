@@ -1,7 +1,7 @@
 # CI 7204 Image Processing and Analytics — Challenge 2
-**SIFT-Based Object Detection in Video**
+**Object Detection in Video**
 
-> Student: Narubet Intaraprasit | 6710422003 | Section 01
+> Student: Narubet Intaraprasit | 6710422003 |
 
 ---
 
@@ -100,11 +100,11 @@ Default params (ratio=0.75, RANSAC=5.0) are sufficient. H model fully satisfied.
 
 | # | Template | Object Type | Root Cause | Script | Video | Analysis |
 |---|----------|-------------|------------|--------|-------|----------|
-| 1 | ![](case_failed/failed_as_expected/assets/template_1.png) | Plain/uniform surface (white paper / blank wall) | No texture → 0 SIFT keypoints | [run_failed_expected_1.py](case_failed/failed_as_expected/run_failed_expected_1.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](YOUR_DRIVE_LINK_FE_1) | [FAILURE_ANALYSIS_1.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_1.txt) |
-| 2 | ![](case_failed/failed_as_expected/assets/template_2.png) | Solid-color fabric (plain black/dark shirt) | Uniform color → no gradient → no keypoints | [run_failed_expected_2.py](case_failed/failed_as_expected/run_failed_expected_2.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](YOUR_DRIVE_LINK_FE_2) | [FAILURE_ANALYSIS_2.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_2.txt) |
-| 3 | ![](case_failed/failed_as_expected/assets/template_3.png) | Reflective surface (mirror / metallic spoon) | Specular highlights change with viewpoint → descriptor mismatch | [run_failed_expected_3.py](case_failed/failed_as_expected/run_failed_expected_3.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](YOUR_DRIVE_LINK_FE_3) | [FAILURE_ANALYSIS_3.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_3.txt) |
-| 4 | ![](case_failed/failed_as_expected/assets/template_4.png) | Transparent object (clear glass / plastic bottle) | Keypoints come from background, not object → unstable | [run_failed_expected_4.py](case_failed/failed_as_expected/run_failed_expected_4.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](YOUR_DRIVE_LINK_FE_4) | [FAILURE_ANALYSIS_4.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_4.txt) |
-| 5 | ![](case_failed/failed_as_expected/assets/template_5.png) | Repetitive pattern (tiles / brick / checkerboard) | Descriptor ambiguity — every tile matches every other tile | [run_failed_expected_5.py](case_failed/failed_as_expected/run_failed_expected_5.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](YOUR_DRIVE_LINK_FE_5) | [FAILURE_ANALYSIS_5.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_5.txt) |
+| 1 | ![](case_failed/failed_as_expected/assets/template_1.png) | Plain/uniform surface (white paper / blank wall) | No texture → 0 SIFT keypoints | [run_failed_expected_1.py](case_failed/failed_as_expected/run_failed_expected_1.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1nVR10OEi3a_08nwpq-yE87hFtmMXTyyx) | [FAILURE_ANALYSIS_1.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_1.txt) |
+| 2 | ![](case_failed/failed_as_expected/assets/template_2.png) | Solid-color fabric (plain black/dark shirt) | Uniform color → no gradient → no keypoints | [run_failed_expected_2.py](case_failed/failed_as_expected/run_failed_expected_2.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1nVR10OEi3a_08nwpq-yE87hFtmMXTyyx) | [FAILURE_ANALYSIS_2.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_2.txt) |
+| 3 | ![](case_failed/failed_as_expected/assets/template_3.png) | Reflective surface (mirror / metallic spoon) | Specular highlights change with viewpoint → descriptor mismatch | [run_failed_expected_3.py](case_failed/failed_as_expected/run_failed_expected_3.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1nVR10OEi3a_08nwpq-yE87hFtmMXTyyx) | [FAILURE_ANALYSIS_3.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_3.txt) |
+| 4 | ![](case_failed/failed_as_expected/assets/template_4.png) | Transparent object (clear glass / plastic bottle) | Keypoints come from background, not object → unstable | [run_failed_expected_4.py](case_failed/failed_as_expected/run_failed_expected_4.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1nVR10OEi3a_08nwpq-yE87hFtmMXTyyx) | [FAILURE_ANALYSIS_4.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_4.txt) |
+| 5 | ![](case_failed/failed_as_expected/assets/template_5.png) | Repetitive pattern (tiles / brick / checkerboard) | Descriptor ambiguity — every tile matches every other tile | [run_failed_expected_5.py](case_failed/failed_as_expected/run_failed_expected_5.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1nVR10OEi3a_08nwpq-yE87hFtmMXTyyx) | [FAILURE_ANALYSIS_5.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_5.txt) |
 
 ### Techniques that would help
 
@@ -124,42 +124,12 @@ Default params (ratio=0.75, RANSAC=5.0) are sufficient. H model fully satisfied.
 
 | # | Template | Object | Root Cause (Unexpected) | Script | Video | Analysis |
 |---|----------|--------|------------------------|--------|-------|----------|
-| 1 | ![](case_failed/failed_but_unexpected/assets/template_1.png) | Small red cosmetic jar (lip balm, lid open) | Curved surface violates H planarity; open lid changes appearance | [run_failed_unexpected_1.py](case_failed/failed_but_unexpected/run_failed_unexpected_1.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](YOUR_DRIVE_LINK_FU_1) | [FAILURE_ANALYSIS_1.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_1.txt) |
-| 2 | ![](case_failed/failed_but_unexpected/assets/template_2.png) | Single white sheep in moving flock of 20+ | Low-texture wool + identical individuals → SIFT cannot distinguish target | [run_failed_unexpected_2.py](case_failed/failed_but_unexpected/run_failed_unexpected_2.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](YOUR_DRIVE_LINK_FU_2) | [FAILURE_ANALYSIS_2.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_2.txt) |
-| 3 | ![](case_failed/failed_but_unexpected/assets/template_3.png) | Logo on product seen from distance | Template high-res vs logo <50px in video → scale pyramid fails | [run_failed_unexpected_3.py](case_failed/failed_but_unexpected/run_failed_unexpected_3.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](YOUR_DRIVE_LINK_FU_3) | [FAILURE_ANALYSIS_3.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_3.txt) |
-| 4 | ![](case_failed/failed_but_unexpected/assets/template_4.png) | Detailed artwork / painting under dynamic lighting | SIFT gradient normalization cannot handle extreme illumination change | [run_failed_unexpected_4.py](case_failed/failed_but_unexpected/run_failed_unexpected_4.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](YOUR_DRIVE_LINK_FU_4) | [FAILURE_ANALYSIS_4.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_4.txt) |
-| 5 | ![](case_failed/failed_but_unexpected/assets/template_5.png) | Book cover in cluttered bookshelf | Correct RANSAC, Wrong Object — neighbor books have similar local features | [run_failed_unexpected_5.py](case_failed/failed_but_unexpected/run_failed_unexpected_5.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](YOUR_DRIVE_LINK_FU_5) | [FAILURE_ANALYSIS_5.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_5.txt) |
+| 1 | ![](case_failed/failed_but_unexpected/assets/template_1.png) | Small red cosmetic jar (lip balm, lid open) | Curved surface violates H planarity; open lid changes appearance | [run_failed_unexpected_1.py](case_failed/failed_but_unexpected/run_failed_unexpected_1.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1bI7kM6HstJRBhL-iNYMPtB_4TkaH80Wl) | [FAILURE_ANALYSIS_1.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_1.txt) |
+| 2 | ![](case_failed/failed_but_unexpected/assets/template_2.png) | Single white sheep in moving flock of 20+ | Low-texture wool + identical individuals → SIFT cannot distinguish target | [run_failed_unexpected_2.py](case_failed/failed_but_unexpected/run_failed_unexpected_2.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1bI7kM6HstJRBhL-iNYMPtB_4TkaH80Wl) | [FAILURE_ANALYSIS_2.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_2.txt) |
+| 3 | ![](case_failed/failed_but_unexpected/assets/template_3.png) | Logo on product seen from distance | Template high-res vs logo <50px in video → scale pyramid fails | [run_failed_unexpected_3.py](case_failed/failed_but_unexpected/run_failed_unexpected_3.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1bI7kM6HstJRBhL-iNYMPtB_4TkaH80Wl) | [FAILURE_ANALYSIS_3.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_3.txt) |
+| 4 | ![](case_failed/failed_but_unexpected/assets/template_4.png) | Detailed artwork / painting under dynamic lighting | SIFT gradient normalization cannot handle extreme illumination change | [run_failed_unexpected_4.py](case_failed/failed_but_unexpected/run_failed_unexpected_4.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1bI7kM6HstJRBhL-iNYMPtB_4TkaH80Wl) | [FAILURE_ANALYSIS_4.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_4.txt) |
+| 5 | ![](case_failed/failed_but_unexpected/assets/template_5.png) | Book cover in cluttered bookshelf | Correct RANSAC, Wrong Object — neighbor books have similar local features | [run_failed_unexpected_5.py](case_failed/failed_but_unexpected/run_failed_unexpected_5.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1bI7kM6HstJRBhL-iNYMPtB_4TkaH80Wl) | [FAILURE_ANALYSIS_5.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_5.txt) |
 
-### Techniques that would help
-
-| # | Recommended Technique |
-|---|----------------------|
-| 1 | Divide surface into planar patches; combine multiple local H estimates |
-| 2 | Individual Re-ID features (CNN embedding) trained on specific individual |
-| 3 | Multi-scale image pyramid search; Super-resolution pre-processing |
-| 4 | CLAHE illumination normalization; Retinex algorithm before SIFT |
-| 5 | Color Signature pre-filtering; verify color histogram after RANSAC |
-
----
-
-## Multi-Detect Bonus Case
-
-> Detect **multiple instances** of the same object in one frame using Iterative Homography.
-
-| Case | Template | Object | Max Detect | Script | Video | Note |
-|------|----------|--------|-----------|--------|-------|------|
-| Multi-Difficult | ![](cases_multi_difficult/assets/template_3.png) | Ferris wheel gondola | 7 | [run_multi_detect_difficult.py](run_multi_detect_difficult.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](YOUR_DRIVE_LINK_MULTI) | MIN=8, ratio=0.75, RANSAC=8.0 |
-
-**How Iterative Homography works:**
-
-```
-1. Run standard SIFT → FLANN → Ratio Test → RANSAC → detect 1st instance
-2. Remove inlier keypoints from descriptor pool
-3. Repeat on remaining descriptors → detect 2nd instance
-4. Continue until MAX_DETECTIONS or < MIN_MATCH matches remain
-```
-
----
 
 ## How to Run
 
@@ -168,22 +138,13 @@ Default params (ratio=0.75, RANSAC=5.0) are sufficient. H model fully satisfied.
 pip install opencv-python opencv-contrib-python numpy
 
 # Run any case
-python case_success/easy/run_easy_1.py
-python case_success/difficult/run_difficult_2.py
-python case_failed/failed_as_expected/run_failed_expected_1.py
-python case_failed/failed_but_unexpected/run_failed_unexpected_1.py
-python run_multi_detect_difficult.py
+python case_success/easy/run_easy_.py
+python case_success/difficult/run_difficult_.py
+python case_failed/failed_as_expected/run_failed_expected_.py
+python case_failed/failed_but_unexpected/run_failed_unexpected_.py
+
 ```
-
-Output videos are saved in each case's `output/` folder.
-
 ---
-
-## Video Links (Google Drive)
-
-> Replace `YOUR_DRIVE_LINK_*` placeholders in the tables above with actual Drive shareable links.
-> Format: `https://drive.google.com/file/d/FILE_ID/view?usp=sharing`
-
 | Case | Drive Link |
 |------|-----------|
 | Easy 1–5 | *(upload output videos → paste link)* |
@@ -194,7 +155,7 @@ Output videos are saved in each case's `output/` folder.
 
 ---
 
-*CI 7204 Image Processing and Analytics — 2/2568 — Narubet Intaraprasit*
+*CI 7204 Image Processing and Analytics — Narubet Intaraprasit*
 
 
 
