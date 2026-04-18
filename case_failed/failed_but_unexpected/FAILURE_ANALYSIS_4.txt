@@ -1,0 +1,42 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — FAILURE ANALYSIS REPORT
+ Case: FAILED BUT UNEXPECTED  #4
+==============================================================
+
+TARGET OBJECT
+  [ object : แผ่นสีน้ำเงินในอุตสาหกรรม]
+
+
+--------------------------------------------------------------
+วิธีที่ลองมาแล้ว (Attempts)
+--------------------------------------------------------------
+
+  Attempt 1 — Standard SIFT
+    MIN_MATCH=10, RATIO=0.75, RANSAC=5.0
+
+  Attempt 2 — More Keypoints
+    contrastThreshold=0.01, edgeThreshold=25
+
+  Attempt 3 — Loosest Ratio
+    RATIO=0.80, RANSAC=10.0
+    ผลลัพธ์: bounding box กระโดดผิดตำแหน่ง
+
+--------------------------------------------------------------
+ทำไมถึงไม่สำเร็จ (Root Cause)
+--------------------------------------------------------------
+
+  SIFT ใช้ gradient magnitude normalization เพื่อทนต่อแสง
+  แต่ normalization นี้ทำงานได้ดีเฉพาะ "small" illumination change
+  เมื่อแสงเปลี่ยน อัตราส่วน contrast ระหว่าง pixel เปลี่ยนไป
+  ทำให้ detect ล้มเหลว
+
+--------------------------------------------------------------
+เทคนิคที่จะช่วยให้สำเร็จได้ (ต้องมีความสามารถพิเศษด้านใด)
+--------------------------------------------------------------
+
+  1. Illumination Normalization Pre-processing
+     → ทำก่อน extract features ทั้ง template และ video frame
+     → ลด effect ของแสงที่เปลี่ยนแปลง
+     
+==============================================================

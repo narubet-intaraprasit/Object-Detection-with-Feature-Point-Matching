@@ -1,0 +1,41 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — FAILURE ANALYSIS REPORT
+ Case: FAILED AS EXPECTED  #2
+==============================================================
+
+TARGET OBJECT
+  [ object : Logo W ]
+
+--------------------------------------------------------------
+วิธีที่ลองมาแล้ว (Attempts)
+--------------------------------------------------------------
+
+  Attempt 1 — Standard Parameters
+    MIN_MATCH=10, RATIO=0.75, RANSAC=5.0
+
+  Attempt 2 — Very Sensitive SIFT
+    contrastThreshold=0.005, nfeatures=1000
+
+  Attempt 3 — Loosest Threshold
+    MIN_MATCH=8, RATIO=0.80, RANSAC=8.0
+
+--------------------------------------------------------------
+ทำไมถึงไม่สำเร็จ (Root Cause)
+--------------------------------------------------------------
+
+  Solid-color fabric มี gradient variation ต่ำมากทั่ว surface + ภาพเบลอ
+
+--------------------------------------------------------------
+เทคนิคที่จะช่วยให้สำเร็จได้ (ต้องมีความสามารถพิเศษด้านใด)
+--------------------------------------------------------------
+
+  1. Contour/Silhouette Matching
+     → ใช้รูปทรงของ object แทน surface texture
+     → cv2.matchShapes() หรือ shape descriptor
+
+  2. Color-based Segmentation
+     → ช้ HSV thresholding หา region
+
+  3. Deep Learning (CNN-based detector)
+==============================================================

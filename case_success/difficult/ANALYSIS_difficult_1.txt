@@ -1,0 +1,32 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — CASE ANALYSIS
+ Type: SUCCESS / DIFFICULT  #1
+==============================================================
+
+TARGET OBJECT
+  [ object : ขวดเครื่องสำอาง]
+
+
+--------------------------------------------------------------
+ความยากที่พบ (Difficulty Analysis)
+--------------------------------------------------------------
+
+  ความยากหลัก: Non-Rigid Deformation and multi object similar color
+
+--------------------------------------------------------------
+วิธีแก้ไข (How It Was Solved)
+--------------------------------------------------------------
+
+  ปรับ SIFT ให้ sensitive ขึ้น:
+    contrastThreshold = 0.02  
+    edgeThreshold     = 20    
+    sigma             = 1.2   
+
+  ปรับ Matching ให้ tolerant มากขึ้น:
+    MIN_MATCH_COUNT  = 8      
+    RATIO_TEST       = 0.78   
+    RANSAC_THRESHOLD = 8.0    
+
+--------------------------------------------------------------
+

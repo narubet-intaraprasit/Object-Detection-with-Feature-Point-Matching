@@ -1,0 +1,35 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — CASE ANALYSIS
+ Type: SUCCESS / EASY  #1
+==============================================================
+
+TARGET OBJECT
+  [ object : ปกหนังสือ ]
+
+--------------------------------------------------------------
+เทคนิคที่ใช้ (Algorithm Pipeline)
+--------------------------------------------------------------
+
+1. SIFT (Scale-Invariant Feature Transform)
+2. Lowe's Ratio Test
+3. RANSAC Homography (findHomography)
+4. perspectiveTransform
+
+--------------------------------------------------------------
+ค่าพารามิเตอร์ที่ใช้
+--------------------------------------------------------------
+
+  SIFT Parameters:
+    nfeatures        = 0        
+    contrastThreshold= 0.04     
+    edgeThreshold    = 10       
+    sigma            = 1.6      
+
+  Matching Parameters:
+    MIN_MATCH_COUNT  = 10       
+    RATIO_TEST       = 0.75     
+    RANSAC_THRESHOLD = 5.0      
+
+--------------------------------------------------------------
+

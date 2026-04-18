@@ -1,0 +1,35 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — CASE ANALYSIS
+ Type: SUCCESS / DIFFICULT  #2
+==============================================================
+
+TARGET OBJECT
+  [ object : label ข้อความ]
+
+--------------------------------------------------------------
+ความยากที่พบ (Difficulty Analysis)
+--------------------------------------------------------------
+
+ 1 — Multiple Similar Objects 
+
+ 2 — Perspective Distortion
+
+ 3 — Label shape
+
+--------------------------------------------------------------
+วิธีแก้ไข (How It Was Solved)
+--------------------------------------------------------------
+
+  SIFT Parameters:
+    contrastThreshold = 0.02   
+    edgeThreshold     = 20
+    sigma             = 1.2
+
+  Matching Parameters:
+    MIN_MATCH_COUNT  = 8
+    RATIO_TEST       = 0.75    
+    RANSAC_THRESHOLD = 8.0     
+
+--------------------------------------------------------------
+
