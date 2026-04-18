@@ -14,7 +14,7 @@ Template Image
      │
      ▼
 [1] SIFT Feature Extraction
-     │  contrastThreshold, edgeThreshold
+     │  
      ▼
 [2] FLANN Matching
      │  
@@ -26,7 +26,7 @@ Template Image
      │ 
      ▼
 [5] Perspective Transform  (cv2.perspectiveTransform)
-     │  project template corners → bounding box in video frame
+     │  
      ▼
      Output Video with bounding box
 ```
@@ -36,7 +36,7 @@ Template Image
 ## Project Structure
 
 ```
-homework_2/
+Challenge-2/
 ├── utils/common.py                      # shared pipeline
 ├── case_success/
 │   ├── easy/                            # Easy cases #1-5
@@ -44,8 +44,6 @@ homework_2/
 ├── case_failed/
 │   ├── failed_as_expected/              # Failed as Expected #1-5
 │   └── failed_but_unexpected/           # Failed but Unexpected #1-5
-├── cases_multi_difficult/               # Multi-detect bonus
-└── run_multi_detect_difficult.py
 ```
 
 ---
@@ -62,7 +60,6 @@ homework_2/
 | 4 | ![](case_success/easy/assets/template_4.png) | [run_easy_4.py](case_success/easy/run_easy_4.py) | MIN=10, ratio=0.75, RANSAC=5.0 | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1NUF8AAoYTcbyigi2wUK671IqQGNReujZ) | [ANALYSIS_easy_4.txt](case_success/easy/ANALYSIS_easy_4.txt) |
 | 5 | ![](case_success/easy/assets/template_5.png) | [run_easy_5.py](case_success/easy/run_easy_5.py) | MIN=10, ratio=0.75, RANSAC=5.0 | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1NUF8AAoYTcbyigi2wUK671IqQGNReujZ) | [ANALYSIS_easy_5.txt](case_success/easy/ANALYSIS_easy_5.txt) |
 
-**Why Easy succeeds:** Flat, textured surface → stable SIFT keypoints across viewpoints.
 Default params (ratio=0.75, RANSAC=5.0) are sufficient. H model fully satisfied.
 
 ---
@@ -79,16 +76,6 @@ Default params (ratio=0.75, RANSAC=5.0) are sufficient. H model fully satisfied.
 | 4 | ![](case_success/difficult/assets/template_4.png) | Low-light condition | [run_difficult_4.py](case_success/difficult/run_difficult_4.py) | MIN=8, ratio=0.80, RANSAC=8.0, ct=0.01 | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1evHgkmK-fZOUBZtfmDzfCthEwYrt6rdw) | [ANALYSIS_difficult_4.txt](case_success/difficult/ANALYSIS_difficult_4.txt) |
 | 5 | ![](case_success/difficult/assets/template_5.png) | Small object / scale mismatch | [run_difficult_5.py](case_success/difficult/run_difficult_5.py) | MIN=8, ratio=0.78, RANSAC=8.0, ct=0.02 | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1evHgkmK-fZOUBZtfmDzfCthEwYrt6rdw) | [ANALYSIS_difficult_5.txt](case_success/difficult/ANALYSIS_difficult_5.txt) |
 
-### Why each case is difficult
-
-| # | Root Difficulty | How Solved |
-|---|-----------------|------------|
-| 1 | Non-rigid fabric deformation violates H planarity assumption | Lower MIN_MATCH + looser RANSAC to tolerate distortion |
-| 2 | Multiple similar conditioner bottles confuse FLANN; curved surface → reprojection error | Very high RANSAC=10.0; select keypoints only on label area |
-| 3 | Object partially blocked → only ~60% of keypoints visible | Low MIN_MATCH=8; rely on remaining visible keypoints |
-| 4 | Low contrast in dark scene → SIFT misses features at default threshold | contrastThreshold=0.01 (very sensitive); RATIO=0.80 |
-| 5 | Object occupies few pixels → scale pyramid cannot build stable extrema | Increase nfeatures; lower contrastThreshold=0.02 |
-
 ---
 
 ## Failed as Expected (5 cases)
@@ -103,16 +90,6 @@ Default params (ratio=0.75, RANSAC=5.0) are sufficient. H model fully satisfied.
 | 4 | ![](case_failed/failed_as_expected/assets/template_4.png) | Transparent object (clear glass / plastic bottle) | Keypoints come from background, not object → unstable | [run_failed_expected_4.py](case_failed/failed_as_expected/run_failed_expected_4.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1nVR10OEi3a_08nwpq-yE87hFtmMXTyyx) | [FAILURE_ANALYSIS_4.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_4.txt) |
 | 5 | ![](case_failed/failed_as_expected/assets/template_5.png) | Repetitive pattern (tiles / brick / checkerboard) | Descriptor ambiguity — every tile matches every other tile | [run_failed_expected_5.py](case_failed/failed_as_expected/run_failed_expected_5.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1nVR10OEi3a_08nwpq-yE87hFtmMXTyyx) | [FAILURE_ANALYSIS_5.txt](case_failed/failed_as_expected/FAILURE_ANALYSIS_5.txt) |
 
-### Techniques that would help
-
-| # | Recommended Technique |
-|---|----------------------|
-| 1 | Shape/Contour matching (cv2.matchShapes), Template matching by silhouette |
-| 2 | Color segmentation (HSV thresholding), Deep embedding (CNN global feature) |
-| 3 | Photometric-invariant descriptors (DAISY, LIOP), polarization camera |
-| 4 | Silhouette detection (Canny edge on rim), Depth camera / Structured light |
-| 5 | Global feature descriptor (HOG, Color Histogram), VLAD / Fisher Vector |
-
 ---
 
 ## Failed but Unexpected (5 cases)
@@ -126,16 +103,6 @@ Default params (ratio=0.75, RANSAC=5.0) are sufficient. H model fully satisfied.
 | 3 | ![](case_failed/failed_but_unexpected/assets/template_3.png) | Logo on product seen from distance | Template high-res vs logo <50px in video → scale pyramid fails | [run_failed_unexpected_3.py](case_failed/failed_but_unexpected/run_failed_unexpected_3.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1bI7kM6HstJRBhL-iNYMPtB_4TkaH80Wl) | [FAILURE_ANALYSIS_3.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_3.txt) |
 | 4 | ![](case_failed/failed_but_unexpected/assets/template_4.png) | Detailed artwork / painting under dynamic lighting | SIFT gradient normalization cannot handle extreme illumination change | [run_failed_unexpected_4.py](case_failed/failed_but_unexpected/run_failed_unexpected_4.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1bI7kM6HstJRBhL-iNYMPtB_4TkaH80Wl) | [FAILURE_ANALYSIS_4.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_4.txt) |
 | 5 | ![](case_failed/failed_but_unexpected/assets/template_5.png) | Book cover in cluttered bookshelf | Correct RANSAC, Wrong Object — neighbor books have similar local features | [run_failed_unexpected_5.py](case_failed/failed_but_unexpected/run_failed_unexpected_5.py) | [![video](https://img.shields.io/badge/▶-Google%20Drive-blue)](https://drive.google.com/drive/u/2/folders/1bI7kM6HstJRBhL-iNYMPtB_4TkaH80Wl) | [FAILURE_ANALYSIS_5.txt](case_failed/failed_but_unexpected/FAILURE_ANALYSIS_5.txt) |
-
-### Techniques that would help
-
-| # | Recommended Technique |
-|---|----------------------|
-| 1 | Divide surface into planar patches; combine multiple local H estimates |
-| 2 | Individual Re-ID features (CNN embedding) trained on specific individual |
-| 3 | Multi-scale image pyramid search; Super-resolution pre-processing |
-| 4 | CLAHE illumination normalization; Retinex algorithm before SIFT |
-| 5 | Color Signature pre-filtering; verify color histogram after RANSAC |
 
 ---
 
