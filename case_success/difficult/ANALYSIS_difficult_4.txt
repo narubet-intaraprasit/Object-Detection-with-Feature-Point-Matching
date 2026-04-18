@@ -1,0 +1,32 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — CASE ANALYSIS
+ Type: SUCCESS / DIFFICULT  #4
+==============================================================
+
+TARGET OBJECT
+  [ object : ดอกไม้สีขาว]
+
+--------------------------------------------------------------
+ความยากที่พบ (Difficulty Analysis)
+--------------------------------------------------------------
+
+  ความยากหลัก: Low-Light Condition and multi object 
+
+
+--------------------------------------------------------------
+วิธีแก้ไข (How It Was Solved)
+--------------------------------------------------------------
+
+  SIFT Parameters :
+    contrastThreshold = 0.01   
+    edgeThreshold     = 25     
+    sigma             = 1.2
+
+  Matching Parameters:
+    MIN_MATCH_COUNT  = 8
+    RATIO_TEST       = 0.80    
+    RANSAC_THRESHOLD = 8.0
+
+--------------------------------------------------------------
+

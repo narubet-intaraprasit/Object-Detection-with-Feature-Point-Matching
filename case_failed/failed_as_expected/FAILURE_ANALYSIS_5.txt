@@ -1,0 +1,43 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — FAILURE ANALYSIS REPORT
+ Case: FAILED AS EXPECTED  #5
+==============================================================
+
+TARGET OBJECT
+  [ object : detect หยดน้ำฟองอากาศในแก้ว]
+
+--------------------------------------------------------------
+วิธีที่ลองมาแล้ว (Attempts)
+--------------------------------------------------------------
+
+  Attempt 1 — Standard Parameters
+    MIN_MATCH=10, RATIO=0.75, RANSAC=5.0
+
+  Attempt 2 — Strict Ratio Test
+    RATIO=0.65
+
+  Attempt 3 — High MIN_MATCH
+    MIN_MATCH=15, RATIO=0.80
+
+--------------------------------------------------------------
+ทำไมถึงไม่สำเร็จ (Root Cause)
+--------------------------------------------------------------
+
+  Pattern ซ้ำๆ เกิดปัญหา ambiguity 
+  — SIFT descriptor ของ tile A ใน template
+  เหมือนกับ descriptor ของ tile B, C, D, E ทุกตัวใน video
+  เพราะทุก tile มีลาย pattern เดียวกัน
+
+
+--------------------------------------------------------------
+เทคนิคที่จะช่วยให้สำเร็จได้ (ต้องมีความสามารถพิเศษด้านใด)
+--------------------------------------------------------------
+
+  1. Global Feature Descriptor
+
+  2. Graph Matching / Spatial Verification
+
+  3. Detect บน Unique Sub-region
+
+==============================================================

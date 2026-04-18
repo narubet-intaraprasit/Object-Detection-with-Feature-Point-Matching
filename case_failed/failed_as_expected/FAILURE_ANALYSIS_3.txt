@@ -1,0 +1,44 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — FAILURE ANALYSIS REPORT
+ Case: FAILED AS EXPECTED  #3
+==============================================================
+
+TARGET OBJECT
+  [ object : detect ทรงสี่เเหลี่ยมสีเหลือง]
+
+--------------------------------------------------------------
+วิธีที่ลองมาแล้ว (Attempts)
+--------------------------------------------------------------
+
+  Attempt 1 — Standard Parameters
+    MIN_MATCH=10, RATIO=0.75, RANSAC=5.0
+
+  Attempt 2 — Sensitive SIFT
+    contrastThreshold=0.01, edgeThreshold=25
+
+  Attempt 3 — Loosest Threshold
+    MIN_MATCH=8, RATIO=0.80, RANSAC=8.0
+
+--------------------------------------------------------------
+ทำไมถึงไม่สำเร็จ (Root Cause)
+--------------------------------------------------------------
+
+  กล้อง Template ถ่ายที่มุมหนึ่ง → highlight อยู่ตำแหน่ง A
+  Video ถ่ายที่มุมอื่น → highlight ย้ายไปตำแหน่ง B
+  SIFT descriptor ที่ compute บน highlight ต่างตำแหน่งกัน
+
+--------------------------------------------------------------
+เทคนิคที่จะช่วยให้สำเร็จได้ (ต้องมีความสามารถพิเศษด้านใด)
+--------------------------------------------------------------
+
+  1. Photometric-Invariant Descriptors
+
+  2. Illumination Normalization Pre-processing
+     → ทำ histogram equalization หรือ Retinex ก่อน extract features
+     → ลด effect ของ highlight
+
+  3. 3D Model-based Detection
+     → ใช้ geometry ของวัตถุ shape แทน surface
+
+==============================================================

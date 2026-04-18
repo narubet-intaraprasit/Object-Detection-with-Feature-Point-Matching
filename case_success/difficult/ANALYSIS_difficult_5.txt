@@ -1,0 +1,32 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — CASE ANALYSIS
+ Type: SUCCESS / DIFFICULT  #5
+==============================================================
+
+TARGET OBJECT
+  [ object : ขวดเครื่องสำอางเล็กๆ]
+
+--------------------------------------------------------------
+ความยากที่พบ (Difficulty Analysis)
+--------------------------------------------------------------
+
+  ความยากหลัก: Small Object / Scale Mismatch
+
+--------------------------------------------------------------
+วิธีแก้ไข (How It Was Solved)
+--------------------------------------------------------------
+
+  SIFT Parameters (tuned สำหรับ small object):
+    nfeatures         = 500    
+    contrastThreshold = 0.02   
+    edgeThreshold     = 20
+    sigma             = 1.2
+
+  Matching Parameters:
+    MIN_MATCH_COUNT  = 8       
+    RATIO_TEST       = 0.78
+    RANSAC_THRESHOLD = 8.0
+
+--------------------------------------------------------------
+

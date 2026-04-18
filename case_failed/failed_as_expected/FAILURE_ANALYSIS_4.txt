@@ -1,0 +1,43 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — FAILURE ANALYSIS REPORT
+ Case: FAILED AS EXPECTED  #4
+==============================================================
+
+TARGET OBJECT
+  [ object : Object ทรงกลมสีม่วง]
+
+--------------------------------------------------------------
+วิธีที่ลองมาแล้ว (Attempts)
+--------------------------------------------------------------
+
+  Attempt 1 — Standard Parameters
+    MIN_MATCH=10, RATIO=0.75, RANSAC=5.0
+
+  Attempt 2 — Sensitive SIFT
+    contrastThreshold=0.01
+
+  Attempt 3 — Loosest Threshold
+    MIN_MATCH=8, RATIO=0.80, RANSAC=8.0
+
+--------------------------------------------------------------
+ทำไมถึงไม่สำเร็จ (Root Cause)
+--------------------------------------------------------------
+
+  Transparent object ไม่มี surface appearance ของตัวเอง
+  สิ่งที่กล้องเห็นคือ background ที่ผ่านมาทาง refraction
+  เมื่อ background เปลี่ยนตาม Template ถ่ายกับ background A → keypoints มาจาก background A
+  Video ถ่ายกับ background B → keypoints มาจาก background B ต่างกัน match ไม่ได้เลย
+
+--------------------------------------------------------------
+เทคนิคที่จะช่วยให้สำเร็จได้ (ต้องมีความสามารถพิเศษด้านใด)
+--------------------------------------------------------------
+
+  1. Silhouette/Contour Detection
+     → cv2.Canny() + shape matching
+
+  2. Stereo/Depth Camera
+     → Transparent object มี depth profile ที่ consistent
+     → ใช้ depth data แทน color/gradient
+
+==============================================================

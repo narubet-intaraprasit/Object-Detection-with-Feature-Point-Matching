@@ -1,0 +1,46 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — FAILURE ANALYSIS REPORT
+ Case: FAILED AS EXPECTED  #1
+==============================================================
+
+TARGET OBJECT
+  [ object : object กลมสีเหลือง]
+
+--------------------------------------------------------------
+วิธีที่ลองมาแล้ว (Attempts)
+--------------------------------------------------------------
+
+  Attempt 1 — Standard Parameters
+    MIN_MATCH=10, RATIO=0.75, RANSAC=5.0
+
+  Attempt 2 — Sensitive SIFT
+    contrastThreshold=0.01, edgeThreshold=30
+
+  Attempt 3 — Loosest Possible
+    MIN_MATCH=8, RATIO=0.80, RANSAC=8.0
+
+--------------------------------------------------------------
+ทำไมถึงไม่สำเร็จ (Root Cause)
+--------------------------------------------------------------
+
+  SIFT ทำงานโดยหา local extrema ใน scale-space ของ gradient image
+  พื้นผิวสีเดียวกันทั้ง surface
+  → SIFT ไม่สามารถหา keypoint ที่ stable ได้
+
+--------------------------------------------------------------
+เทคนิคที่จะช่วยให้สำเร็จได้ (ต้องมีความสามารถพิเศษด้านใด)
+--------------------------------------------------------------
+
+  1. Shape/Contour-based Matching
+     → ใช้ขอบ (edge) ของ object แทน texture
+     → เช่น Template Matching ด้วย cv2.matchTemplate()
+     → เหมาะกับ object ที่มีรูปทรงชัดเจน
+
+  2. Color Histogram Matching
+     → ถ้า object มีสีพิเศษ ใช้ color distribution 
+
+  3. Region Proposal + Global Descriptor
+     → หา bounding region ก่อน แล้วใช้ global feature HOG
+
+==============================================================

@@ -1,0 +1,49 @@
+==============================================================
+ CI 7204 Image Processing and Analytics  2/2568
+ Challenge 2 — FAILURE ANALYSIS REPORT
+ Case: FAILED BUT UNEXPECTED  #3
+==============================================================
+
+TARGET OBJECT
+  [ object : โลโก้บนสินค้า IC ]
+
+--------------------------------------------------------------
+วิธีที่ลองมาแล้ว (Attempts)
+--------------------------------------------------------------
+
+  Attempt 1 — Standard SIFT
+    nfeatures=0, contrastThreshold=0.04, MIN_MATCH=10, RATIO=0.75
+    ผลลัพธ์: 0 keypoints ใน video frame บริเวณ logo logo ใน video เล็กเกินไป → SIFT ไม่เห็น
+
+  Attempt 2 — Sensitive SIFT
+    contrastThreshold=0.01, edgeThreshold=25
+    ผลลัพธ์: keypoints เพิ่มขึ้นเล็กน้อย แต่ไม่ใช่บน logo SIFT จับ noise รอบๆ 
+
+  Attempt 3 — Force More Keypoints
+    nfeatures=1000, contrastThreshold=0.01
+    ผลลัพธ์: keypoints เยอะขึ้นแต่ match scale ไม่ตรง
+
+--------------------------------------------------------------
+ทำไมถึงไม่สำเร็จ (Root Cause)
+--------------------------------------------------------------
+
+  SIFT ถูก design ให้ทนต่อ scale change แต่ในขอบเขตจำกัด
+  เมื่อ logo ใน video SIFT scale-space pyramid ไม่สามารถสร้าง stable extrema ได้
+  Template มี resolution สูง Logo ใน video มี resolution ต่ำ Descriptor ของ feature เดียวกันที่ต่าง scale มากๆ
+  จะมีค่า distance สูงมาก ratio test ไม่เจอ
+
+--------------------------------------------------------------
+เทคนิคที่จะช่วยให้สำเร็จได้ (ต้องมีความสามารถพิเศษด้านใด)
+--------------------------------------------------------------
+
+  1. Multi-Scale Image Pyramid Search
+     → สร้าง pyramid ของ video frame
+     → detect ที่ทุก scale แล้วเลือก scale ที่ดีที่สุด
+
+  2. Super-Resolution Pre-processing
+     → ขยาย video frame ก่อน detect
+     → ใช้ cv2.resize()
+
+  3. Deep Feature Matching 
+
+==============================================================
